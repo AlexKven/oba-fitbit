@@ -12,6 +12,13 @@ messaging.peerSocket.onclose = () => {
   console.log("Companion Socket Closed");
 };
 
+messaging.peerSocket.onmessage = evt => {
+  if (evt.data && evt.data.command == "getStopArrivals")
+  {
+    getStopArrivals();
+  }
+}
+
 // A user changes settings
 settingsStorage.onchange = evt => {
   let data = {
@@ -40,4 +47,10 @@ function sendVal(data) {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(data);
   }
+}
+
+function getStopArrivals()
+{
+  var url = "https://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_490.xml?key=TEST";
+  fetch(url).then(res => res.text()).then(txt => console.log(txt));
 }

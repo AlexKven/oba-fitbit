@@ -5,6 +5,17 @@
   text-length: 32;
 }
 
+.tile-list-item {
+  height: 80;
+}
+
+.tile-list-item text {
+  height: 32;
+  font-family: System-Regular;
+  fill: "white";
+  text-length: 32;
+}
+
 #background {
   width: 100%;
   height: 100%;

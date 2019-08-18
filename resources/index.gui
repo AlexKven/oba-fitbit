@@ -1,9 +1,47 @@
 <svg>
+  <defs>
+    <symbol id="my-tile-item" href="#tile-list-item" focusable="false"
+            pointer-events="none" system-events="all" display="none">
+      <text id="text"/>
+      <rect id="tile-divider-bottom" class="tile-divider-bottom" />
+      <rect id="touch-me" pointer-events="all" x="0" y="0" width="100%"
+            height="100%-2" opacity="0" />
+    </symbol>
+  </defs>
+
   <rect id="background" />
-  <use id="mybutton" href="#push-button" y="50" height="60"
-    fill="fb-red" font-family="System-Regular" font-size="40">
-    <set href="#text" attributeName="text-buffer" to="Click Me!" />
-    <set href="#text" attributeName="fill" to="fb-peach" />
-    <set href="#text" attributeName="y" to="12" />
+  <use id="container" href="#panoramaview">
+    <use id="item1" href="#panoramaview-item">
+      <use id="my-list" href="#tile-list">
+        <var id="virtual" value="1" />
+        <var id="separator-height-bottom" value="2" />
+
+        <use id="my-pool" href="#tile-list-pool">
+          <use id="my-pool[0]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[1]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[2]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[3]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[4]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[5]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[6]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[7]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[8]" href="#my-tile-item" class="tile-list-item" />
+          <use id="my-pool[9]" href="#my-tile-item" class="tile-list-item" />
+        </use>
+      </use>
+    </use>
+    <use id="item2" href="#panoramaview-item">
+      <rect width="80%" height="100%" fill="green" />
+    </use>
+
+    <!-- Have enough pagination dots for your slides (extras are hidden) -->
+    <use id="pagination-dots" href="#pagination-widget" y="8">
+      <use href="#pagination-dot" />
+      <use href="#pagination-dot" />
+      <use href="#pagination-dot" />
+      <use href="#pagination-dot" />
+      <use href="#pagination-dot" />
+      <use href="#pagination-highlight-dot" />
+    </use>
   </use>
 </svg>
