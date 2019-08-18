@@ -1,0 +1,27 @@
+{
+  "fitbit": {
+    "appUUID": "0ef181ea-b1ff-4e38-80b2-960065828954",
+    "appType": "app",
+    "appDisplayName": "OneBusAway",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#4caf50",
+    "requestedPermissions": [
+      "access_internet",
+      "access_location"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson",
+      "gemini"
+    ],
+    "i18n": {
+      "en": {
+        "name": "OneBusAway"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.1.0"
+  }
+}
