@@ -1,3 +1,9 @@
 <svg>
   <rect id="background" />
+  <use id="mybutton" href="#push-button" y="50" height="60"
+    fill="fb-red" font-family="System-Regular" font-size="40">
+    <set href="#text" attributeName="text-buffer" to="Click Me!" />
+    <set href="#text" attributeName="fill" to="fb-peach" />
+    <set href="#text" attributeName="y" to="12" />
+  </use>
 </svg>

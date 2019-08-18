@@ -3,6 +3,11 @@ import * as messaging from "messaging";
 
 let background = document.getElementById("background");
 
+let mybutton = document.getElementById("mybutton");
+mybutton.onactivate = function(evt) {
+  console.log("Clicked!");
+}
+
 // Message is received
 messaging.peerSocket.onmessage = evt => {
   console.log(`App received: ${JSON.stringify(evt)}`);
