@@ -7,24 +7,25 @@ let VTList = document.getElementById("my-list");
 
 let NUM_ELEMS = 100;
 
+var currentArrivals = [];
+
 VTList.delegate = {
   getTileInfo: function(index) {
-    return {
-      type: "my-pool",
-      value: "Menu item",
-      index: index
-    };
+    return currentArrivals[index];
   },
   configureTile: function(tile, info) {
-    if (info.type == "my-pool") {
-      tile.getElementById("text").text = `${info.value} ${info.index}`;
-      let touch = tile.getElementById("touch-me");
-      touch.onclick = evt => {
-        console.log(`touched: ${info.index}`);
-      };
-    }
+    console.log(JSON.stringify(tile));
+    tile.getElementById("text").text = `${tile.route}: ${tile.mins}`;
+    let touch = tile.getElementById("touch-me");
+    touch.onclick = evt => {
+      console.log(`touched: ${tile.destination}`);
+    };
   }
 };
+
+var pendingRequests = [];
+
+sendCommand("getStopArrivals", "");
 
 function sendCommand(command,data) {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
@@ -34,13 +35,9 @@ function sendCommand(command,data) {
       data:data
     });
   }else{
-    console.log("Peer socket not open");
+    pendingRequests.push({command: command, data: data});
   }
 }
-
-
-// VTList.length must be set AFTER VTList.delegate
-VTList.length = NUM_ELEMS;
 
 // Message is received
 messaging.peerSocket.onmessage = evt => {
@@ -50,12 +47,23 @@ messaging.peerSocket.onmessage = evt => {
     console.log(`Setting background color: ${color}`);
     background.style.fill = color;
   }
+  else if (evt.data && evt.data.command == "getStopArrivals")
+  {
+    currentArrivals = evt.data.data;
+    console.log(currentArrivals.length);
+    VTList.length = currentArrivals.length;
+  }
 };
 
 // Message socket opens
 messaging.peerSocket.onopen = () => {
   console.log("App Socket Open");
-  sendCommand("getStopArrivals", "");
+  for (var i = 0; i < pendingRequests.length; i++)
+  {
+    var next = pendingRequests[i];
+    sendCommand(next.command, next.data);
+  }
+  pendingRequests = [];
 };
 
 // Message socket closes
