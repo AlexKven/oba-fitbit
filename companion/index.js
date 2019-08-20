@@ -84,16 +84,19 @@ function getStopArrivals()
 
       for (var i = 0; i < arrivals.length; i++)
       {
-        var arrivalDoc = arrivals[i];
-        var arrTime = arrivalDoc.getElementsByTagName("predictedArrivalTime")[0].childNodes[0].nodeValue;
-        var schedTime = arrivalDoc.getElementsByTagName("scheduledArrivalTime")[0].childNodes[0].nodeValue;
-        var arrival = {
-          route: arrivalDoc.getElementsByTagName("routeShortName")[0].childNodes[0].nodeValue,
-          destination: arrivalDoc.getElementsByTagName("tripHeadsign")[0].childNodes[0].nodeValue,
-          predicted: (arrTime == 0) ? false : true,
-          mins: Math.round((((arrTime == 0) ? schedTime : arrTime) - curTime) / 60000)
+        if (result.length < 10)
+        {
+          var arrivalDoc = arrivals[i];
+          var arrTime = arrivalDoc.getElementsByTagName("predictedArrivalTime")[0].childNodes[0].nodeValue;
+          var schedTime = arrivalDoc.getElementsByTagName("scheduledArrivalTime")[0].childNodes[0].nodeValue;
+          var arrival = {
+            route: arrivalDoc.getElementsByTagName("routeShortName")[0].childNodes[0].nodeValue,
+            destination: arrivalDoc.getElementsByTagName("tripHeadsign")[0].childNodes[0].nodeValue,
+            predicted: (arrTime == 0) ? false : true,
+            mins: Math.round((((arrTime == 0) ? schedTime : arrTime) - curTime) / 60000)
+          }
+          result.push(arrival);
         }
-        result.push(arrival);
       }
       
       sendCommand("getStopArrivals", result);
